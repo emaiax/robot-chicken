@@ -1,0 +1,72 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    awesome_print (1.8.0)
+    axiom-types (0.1.1)
+      descendants_tracker (~> 0.0.4)
+      ice_nine (~> 0.11.0)
+      thread_safe (~> 0.3, >= 0.3.1)
+    byebug (9.0.6)
+    coderay (1.1.1)
+    coercible (1.0.0)
+      descendants_tracker (~> 0.0.1)
+    declarative (0.0.9)
+    declarative-option (0.1.0)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
+    equalizer (0.0.11)
+    excon (0.58.0)
+    faraday (0.13.1)
+      multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.12.2)
+      faraday (>= 0.7.4, < 1.0)
+    ice_nine (0.11.2)
+    json (2.1.0)
+    method_source (0.8.2)
+    mtg_sdk (3.1.0)
+      faraday_middleware (~> 0.10)
+      json (~> 2.0)
+      multi_json (~> 1.12)
+      multi_xml (~> 0.5)
+      roar (~> 1.0)
+      virtus (~> 1.0)
+    multi_json (1.12.1)
+    multi_xml (0.6.0)
+    multipart-post (2.0.0)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-byebug (3.4.3)
+      byebug (>= 9.0, < 9.1)
+      pry (~> 0.10)
+    representable (3.0.4)
+      declarative (< 0.1.0)
+      declarative-option (< 0.2.0)
+      uber (< 0.2.0)
+    roar (1.1.0)
+      representable (~> 3.0.0)
+    slop (3.6.0)
+    telegram_bot (0.0.7)
+      excon (>= 0.30.0)
+      virtus (>= 1.0.0)
+    thread_safe (0.3.6)
+    uber (0.1.0)
+    virtus (1.0.5)
+      axiom-types (~> 0.1)
+      coercible (~> 1.0)
+      descendants_tracker (~> 0.0, >= 0.0.3)
+      equalizer (~> 0.0, >= 0.0.9)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  awesome_print
+  mtg_sdk
+  pry
+  pry-byebug
+  telegram_bot
+
+BUNDLED WITH
+   1.15.3

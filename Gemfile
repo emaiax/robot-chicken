@@ -7,4 +7,6 @@ group :development do
   gem "pry"
   gem "pry-byebug"
   gem "awesome_print"
+
+  gem "rubocop"
 end

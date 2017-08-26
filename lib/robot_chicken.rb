@@ -1,3 +1,5 @@
+require "logger"
+
 module RobotChicken
   module_function
 

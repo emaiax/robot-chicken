@@ -18,4 +18,3 @@ end
 at_exit do
   RobotChicken.logger.info "Exiting"
 end
-

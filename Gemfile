@@ -10,7 +10,8 @@ group :development, :test do
 
   gem "rubocop", require: false
 
+  gem "codeclimate-test-reporter"
+
   gem "rspec"
   gem "simplecov"
-  gem "codeclimate-test-reporter"
 end

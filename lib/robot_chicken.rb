@@ -1,5 +1,5 @@
 module RobotChicken
-  extend self
+  module_function
 
   autoload :Bot, "robot_chicken/bot"
 

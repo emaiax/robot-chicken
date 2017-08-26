@@ -2,10 +2,11 @@ module RobotChicken
   class Bot
     include Singleton
 
-    attr_reader :bot, :info
+    attr_reader :bot, :info, :commands
 
     def initialize
-      @bot = TelegramBot.new(token: RobotChicken.api_token)
+      @bot      = TelegramBot.new(token: RobotChicken.api_token)
+      @commands = Commands.new(bot)
 
       RobotChicken.logger.info "Initializing #{info.first_name} [##{info.id}]"
     end
@@ -15,22 +16,14 @@ module RobotChicken
     end
 
     def listen
-      RobotChicken.logger.info "Listening..."
-
-      bot.get_updates(fail_silently: true) do |message|
+      bot.get_updates(fail_silently: false) do |message|
         RobotChicken.logger.info "from @#{message.from.username}: #{message.text}"
-        command = message.get_command_for(bot)
 
         message.reply do |reply|
-          case command
-          when /greet/i
-            reply.text = "Hello, #{message.from.first_name}!"
-          else
-            reply.text = "#{message.from.first_name}, have no idea what #{command.inspect} means."
-          end
+          reply.text = commands.reply(message)
+          reply.send_with(bot)
 
           RobotChicken.logger.info "to @#{message.from.username}: #{reply.text.inspect}"
-          reply.send_with(bot)
         end
       end
     end

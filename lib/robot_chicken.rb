@@ -1,7 +1,8 @@
 module RobotChicken
   module_function
 
-  autoload :Bot, "robot_chicken/bot"
+  autoload :Bot,      "robot_chicken/bot"
+  autoload :Commands, "robot_chicken/commands"
 
   def logger
     @logger ||= Logger.new(STDOUT)

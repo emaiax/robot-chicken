@@ -1,0 +1,20 @@
+version: '2'
+
+volumes:
+  bot_bundle:
+    driver: local
+
+services:
+  bot:
+    tty: true
+    stdin_open: true
+    environment:
+      BUNDLE_PATH: /vendor/bundle
+      BUNDLE_APP_CONFIG: /vendor/bundle
+      # API_TOKEN: "your api key"
+    image: emaiax/ruby
+    command: ./bot
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - bot_bundle:/vendor/bundle

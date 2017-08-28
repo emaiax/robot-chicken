@@ -1,3 +1,5 @@
+require "singleton"
+
 module RobotChicken
   class Bot
     include Singleton

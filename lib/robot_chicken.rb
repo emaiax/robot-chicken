@@ -7,7 +7,7 @@ module RobotChicken
   autoload :Commands, "robot_chicken/commands"
 
   def logger
-    @logger ||= Logger.new(STDOUT)
+    @logger ||= Logger.new($stdout)
   end
 
   def api_token
@@ -18,7 +18,7 @@ module RobotChicken
     if api_token
       Bot.instance.listen
     else
-      logger.fatal "No API TOKEN found."
+      logger.warn "No API TOKEN found."
     end
   end
 end

@@ -1,33 +1,28 @@
 require "singleton"
+require "telegram/bot"
 
 module RobotChicken
   class Bot
     include Singleton
 
-    attr_reader :bot, :info, :commands
+    attr_reader :bot, :commands
 
     def initialize
-      @bot      = TelegramBot.new(token: RobotChicken.api_token)
+      @bot      = Telegram::Bot::Client.new(RobotChicken.api_token)
       @commands = Commands.new(bot)
 
-      RobotChicken.logger.info "Initializing #{info.first_name} [##{info.id}]"
+      RobotChicken.logger.info "Initializing #{bot_info.dig("result", "first_name")} [##{bot_info.dig("result", "id")}]"
     end
 
-    def info
-      @info ||= bot.get_me
+    def bot_info
+      @bot_info ||= bot.api.get_me
     end
 
     def listen
-      bot.get_updates(fail_silently: false) do |message|
-        RobotChicken.logger.info "from @#{message.from.username}: #{message.text}"
-
-        message.reply do |reply|
-          reply.text = commands.reply(message)
-          reply.send_with(bot)
-
-          RobotChicken.logger.info "to @#{message.from.username}: #{reply.text.inspect}"
-        end
-      end
+      bot.listen { |message| commands.reply(message) }
+    rescue Faraday::ConnectionFailed => e
+      RobotChicken.logger.warn "Faraday failing. Retrying. #{e}"
+      listen
     end
   end
 end

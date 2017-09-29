@@ -14,13 +14,10 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
+ENV["RACK_ENV"] ||= "test"
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
-require "robot_chicken"
-require "simplecov"
 
-SimpleCov.start do
-  minimum_coverage ENV.fetch("MINIMUM_COVERAGE") { 100 }
-end
+require "support_helper"
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate

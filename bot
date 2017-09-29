@@ -15,6 +15,7 @@ begin
   RobotChicken.run
 rescue => e
   RobotChicken.logger.error e
+  retry
 end
 
 at_exit do

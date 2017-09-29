@@ -1,1 +1,1 @@
-web: bundle exec bot
+web: bundle exec bot -p $PORT

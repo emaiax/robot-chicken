@@ -53,11 +53,15 @@ module RobotChicken
     end
 
     def single_card(card)
-      kb_cards = []
-      kb_cards << Telegram::Bot::Types::InlineKeyboardButton.new(text: "Picture", callback_data: "picture##{card.id}") if card.image_url
-      kb_cards << Telegram::Bot::Types::InlineKeyboardButton.new(text: "Rulings", callback_data: "rulings##{card.id}") if card.rulings
+      kb_cards = [
+        card.image_url ? Telegram::Bot::Types::InlineKeyboardButton.new(text: "Picture", callback_data: "picture##{card.id}") : nil,
+        card.rulings ? Telegram::Bot::Types::InlineKeyboardButton.new(text: "Rulings", callback_data: "rulings##{card.id}") : nil
+      ].compact
 
-      markup = Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: kb_cards)
+      kb_back = []
+      # kb_back << Telegram::Bot::Types::InlineKeyboardButton.new(text: "<< Back", callback_data: "back##{card.id}") if kb_cards.any?
+
+      markup = Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: [kb_cards, kb_back])
 
       message_opts = { chat_id: message.from.id, text: parse_card(card), parse_mode: "HTML", reply_markup: markup }
 
@@ -75,12 +79,16 @@ module RobotChicken
     end
 
     def message_reply
-      cards = Card.find_by_name(message.text)
+      case message.text
+      when /\/start/ then bot.api.send_message(chat_id: message.chat.id, text: welcome_message, parse_mode: "HTML")
+      else
+        cards = Card.find_by_name(message.text)
 
-      case cards.size
-      when 0 then card_not_found
-      when 1 then single_card(cards.first)
-      else multiple_cards(cards)
+        case cards.size
+        when 0 then card_not_found
+        when 1 then single_card(cards.first)
+        else multiple_cards(cards)
+        end
       end
     end
 
@@ -96,6 +104,13 @@ module RobotChicken
       when "picture" then bot.api.send_photo(chat_id: message.from.id, photo: card.image_url)
       when "rulings" then bot.api.send_message(chat_id: message.from.id, text: parse_rulings(card), parse_mode: "HTML")
       end
+    end
+
+    def welcome_message
+      [].tap do |text|
+        text << "Hello, #{message.from.first_name}. Let's get started!"
+        text << "Start searching your cards like 'emrakul'."
+      end.join("\n\n")
     end
   end
 end

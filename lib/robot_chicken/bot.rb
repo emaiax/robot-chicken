@@ -22,7 +22,7 @@ module RobotChicken
       bot.listen { |message| commands.reply(message) }
     rescue Faraday::ConnectionFailed => e
       RobotChicken.logger.warn "Faraday failing. Retrying. #{e}"
-      listen
+      retry
     end
   end
 end

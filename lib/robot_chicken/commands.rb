@@ -22,7 +22,7 @@ module RobotChicken
       when "/card"
         Card.find(message.text)
       else
-        "#{message.from.first_name}, have no idea what #{message.text} means."
+        "#{message.from.first_name}, I have no idea what '#{message.text}' means."
       end
     end
 

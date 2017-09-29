@@ -1,7 +1,8 @@
 source "https://rubygems.org"
+ruby "2.3.3"
 
 gem "mtg_sdk"
-gem "telegram_bot"
+gem "telegram-bot-ruby"
 
 group :development, :test do
   gem "pry"
@@ -11,6 +12,8 @@ group :development, :test do
   gem "rubocop", require: false
 
   gem "codeclimate-test-reporter"
+
+  gem "vcr"
 
   gem "rspec"
   gem "simplecov"

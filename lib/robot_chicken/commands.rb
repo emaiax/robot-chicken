@@ -73,6 +73,8 @@ module RobotChicken
 
     def multiple_cards(cards)
       kb_cards = cards.map { |card| Telegram::Bot::Types::InlineKeyboardButton.new(text: "#{card.name} (#{card.set})", callback_data: "card##{card.id}") }
+      kb_cards = kb_cards.each_slice(2).map { |kb_card| kb_card }
+
       markup   = Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: kb_cards)
 
       bot.api.send_message(chat_id: message.chat.id, text: "#{cards.size} cards found. Pick one:", reply_markup: markup)

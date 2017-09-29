@@ -14,9 +14,13 @@ module RobotChicken
     @api_token ||= ENV["API_TOKEN"]
   end
 
+  def bot
+    @bot ||= Bot.new
+  end
+
   def run
     if api_token
-      Bot.instance.listen
+      bot.listen
     else
       logger.warn "No API TOKEN found."
     end

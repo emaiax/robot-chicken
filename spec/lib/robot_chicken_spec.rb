@@ -5,7 +5,7 @@ RSpec.describe RobotChicken do
 
   context "with api token", vcr: { cassette_name: :info } do
     it "creates bot instance and start to listen" do
-      expect(RobotChicken::Bot.instance).to receive(:listen)
+      expect(described_class.bot).to receive(:listen)
 
       subject.run
     end

@@ -1,10 +1,7 @@
-require "singleton"
 require "telegram/bot"
 
 module RobotChicken
   class Bot
-    include Singleton
-
     attr_reader :bot, :commands
 
     def initialize

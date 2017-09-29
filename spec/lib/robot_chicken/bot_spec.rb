@@ -1,9 +1,9 @@
 require "spec_helper"
 
 RSpec.describe RobotChicken::Bot do
-  describe "attributes", vcr: { cassette_name: :info } do
-    subject { described_class.instance }
+  subject { described_class.new }
 
+  describe "attributes", vcr: { cassette_name: :info } do
     it { expect(subject.bot).to      be_instance_of(Telegram::Bot::Client) }
     it { expect(subject.commands).to be_instance_of(RobotChicken::Commands) }
 

@@ -1,10 +1,19 @@
 require "spec_helper"
 
 RSpec.describe RobotChicken do
-  describe "module functions" do
-    before { ENV.delete("API_TOKEN") }
+  it { expect(described_class.logger).to be_instance_of(BotLogger) }
 
-    it { expect(subject.api_token).to be_nil }
-    it { expect(subject.logger).to be_an_instance_of(Logger) }
+  context "with api token", vcr: { cassette_name: :info } do
+    it "creates bot instance and start to listen" do
+      expect(RobotChicken::Bot.instance).to receive(:listen)
+
+      subject.run
+    end
+  end
+
+  context "without api token" do
+    before { allow(subject).to receive(:api_token).and_return(nil) }
+
+    it { expect { subject.run }.to output(/No API TOKEN found/).to_stdout }
   end
 end

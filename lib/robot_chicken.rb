@@ -4,6 +4,7 @@ module RobotChicken
   module_function
 
   autoload :Bot,      "robot_chicken/bot"
+  autoload :Card,     "robot_chicken/card"
   autoload :Commands, "robot_chicken/commands"
 
   def logger

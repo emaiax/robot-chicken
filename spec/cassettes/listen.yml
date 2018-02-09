@@ -19,7 +19,7 @@ http_interactions:
       server:
       - nginx/1.12.2
       date:
-      - Fri, 09 Feb 2018 23:31:12 GMT
+      - Fri, 09 Feb 2018 23:31:21 GMT
       content-type:
       - application/json
       content-length:
@@ -39,5 +39,5 @@ http_interactions:
       string: '{"ok":true,"result":{"id":448967013,"is_bot":true,"first_name":"MTG
         Helper","username":"mtghelper_bot"}}'
     http_version: 
-  recorded_at: Fri, 09 Feb 2018 23:31:37 GMT
+  recorded_at: Fri, 09 Feb 2018 23:31:46 GMT
 recorded_with: VCR 3.0.3

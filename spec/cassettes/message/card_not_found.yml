@@ -1,0 +1,69 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.magicthegathering.io/v1/cards?name=nocardfound
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.13.1
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      date:
+      - Fri, 09 Feb 2018 23:31:21 GMT
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '12'
+      connection:
+      - close
+      set-cookie:
+      - __cfduid=d7a43b246473b10c10428872b5b83cde11518219080; expires=Sat, 09-Feb-19
+        23:31:20 GMT; path=/; domain=.magicthegathering.io; HttpOnly
+      x-frame-options:
+      - SAMEORIGIN
+      x-xss-protection:
+      - 1; mode=block
+      x-content-type-options:
+      - nosniff
+      link:
+      - ''
+      page-size:
+      - '100'
+      count:
+      - '0'
+      total-count:
+      - '0'
+      etag:
+      - W/"31bb421a0e88c3b6e403377ea50ffc0b"
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-request-id:
+      - 915ecd45-5ddd-4766-b214-f57ce7966c36
+      ratelimit-limit:
+      - '1000'
+      ratelimit-remaining:
+      - '999'
+      x-runtime:
+      - '0.010159'
+      vary:
+      - Origin
+      via:
+      - 1.1 vegur
+      expect-ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      server:
+      - cloudflare
+      cf-ray:
+      - 3eaa9f27ea8a4a5a-GRU
+    body:
+      encoding: UTF-8
+      string: '{"cards":[]}'
+    http_version: 
+  recorded_at: Fri, 09 Feb 2018 23:31:43 GMT
+recorded_with: VCR 3.0.3

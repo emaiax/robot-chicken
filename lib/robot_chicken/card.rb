@@ -1,5 +1,3 @@
-require "mtg_sdk/card"
-
 module RobotChicken
   class Card
     class << self

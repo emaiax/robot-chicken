@@ -2,24 +2,27 @@ require "telegram/bot"
 
 module RobotChicken
   class Bot
-    attr_reader :bot, :commands
+    attr_reader :client
 
     def initialize
-      @bot      = Telegram::Bot::Client.new(RobotChicken.api_token)
-      @commands = Commands.new(bot)
+      @client = Telegram::Bot::Client.new(RobotChicken.api_token)
 
       RobotChicken.logger.info "Initializing #{bot_info.dig("result", "first_name")} [##{bot_info.dig("result", "id")}]"
     end
 
-    def bot_info
-      @bot_info ||= bot.api.get_me
-    end
-
     def listen
-      bot.listen { |message| commands.reply(message) }
+      client.listen do |message|
+        Message.reply(message) { |response| client.api.send(response[:action], response) }
+      end
     rescue Faraday::ConnectionFailed => e
       RobotChicken.logger.warn "Faraday failing. Retrying. #{e}"
-      retry
+      retry if ENV["RUBY_ENV"] == "test"
+    end
+
+    private
+
+    def bot_info
+      @bot_info ||= client.api.get_me
     end
   end
 end

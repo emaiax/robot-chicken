@@ -2,7 +2,9 @@ require "vcr"
 require "pry"
 require "simplecov"
 require "pry-byebug"
+require "factory_bot"
 
+require "mtg_sdk"
 require "telegram/bot"
 
 require "bot_logger"
@@ -19,9 +21,14 @@ SimpleCov.start do
 end
 
 RSpec.configure do |config|
-  config.before(:each) do
-    allow(RobotChicken).to receive(:logger).and_return(BotLogger.new)
+  config.include FactoryBot::Syntax::Methods
 
-    allow(RobotChicken).to receive(:api_token).and_return("448967013:123")
+  config.before(:suite) do
+    FactoryBot.find_definitions
+  end
+
+  config.before(:each) do
+    allow(RobotChicken).to receive(:logger).and_return    BotLogger.new
+    allow(RobotChicken).to receive(:api_token).and_return "448967013:123"
   end
 end

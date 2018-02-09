@@ -7,7 +7,7 @@ class BotLogger
 
   def method_missing(method, *args)
     if respond_to?(method)
-      puts args
+      puts "[#{ENV["RACK_ENV"]}] #{args.first}"
     else
       super
     end

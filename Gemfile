@@ -14,6 +14,7 @@ group :development, :test do
   gem "codeclimate-test-reporter"
 
   gem "vcr"
+  gem "factory_bot"
 
   gem "rspec"
   gem "simplecov"

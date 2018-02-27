@@ -16,7 +16,7 @@ RSpec.describe RobotChicken::Message do
     subject { described_class.reply message }
 
     it { expect(subject).to match_array(response) }
-    it { expect { subject }.to output(/@emaiax: \/start/).to_stdout }
+    it { expect { subject }.to output(%r{@emaiax: \/start}).to_stdout }
 
     it { expect { |b| described_class.reply(message, &b) }.to yield_with_args(response) }
   end
@@ -36,7 +36,7 @@ RSpec.describe RobotChicken::Message do
     subject { described_class.reply message }
 
     it { expect(subject).to match_array(response) }
-    it { expect { subject }.to output(/@emaiax: \/stop/).to_stdout }
+    it { expect { subject }.to output(%r{@emaiax: \/stop}).to_stdout }
 
     it { expect { |b| described_class.reply(message, &b) }.to yield_with_args(response) }
   end

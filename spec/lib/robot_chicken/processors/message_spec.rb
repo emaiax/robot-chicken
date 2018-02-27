@@ -14,7 +14,7 @@ RSpec.describe RobotChicken::Processors::Message do
   describe "single card found", vcr: { cassette_name: "message/single_card_azusa" } do
     let(:message) { build :message, text: "azusa" }
 
-    it { expect(subject.keys).to match_array([:action, :text, :reply_markup]) }
+    it { expect(subject.keys).to match_array(%i[action text reply_markup]) }
 
     it { expect(subject[:action]).to eql(:send_message) }
 
@@ -31,7 +31,7 @@ RSpec.describe RobotChicken::Processors::Message do
   describe "multiple cards found", vcr: { cassette_name: "message/multiple_cards_bleh" } do
     let(:message) { build :message, text: "bleh" }
 
-    it { expect(subject.keys).to match_array([:action, :text, :reply_markup]) }
+    it { expect(subject.keys).to match_array(%i[action text reply_markup]) }
 
     it { expect(subject[:action]).to eql(:send_message) }
 

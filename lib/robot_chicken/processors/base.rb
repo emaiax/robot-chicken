@@ -5,7 +5,8 @@ module RobotChicken
         attr_reader :message, :callback_data
 
         def process(message, callback_data = nil)
-          @message, @callback_data = message, callback_data
+          @message       = message
+          @callback_data = callback_data
 
           reply
         end

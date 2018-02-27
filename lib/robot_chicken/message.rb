@@ -7,13 +7,11 @@ module RobotChicken
         @message  = message
         @response = { chat_id: chat_id, parse_mode: "HTML" }
 
-        log_message
-
         text = message.respond_to?(:text) ? message.text : nil
 
         case text
-        when /\/start/ then response.merge! action: :send_message, text: "Hello, Eduardo. Let's get started!\n\nStart searching your cards like 'emrakul'."
-        when /\/stop/  then response.merge! action: :send_message, text: "Goodbye cyah soon!"
+        when %r{\/start} then response.merge! action: :send_message, text: "Hello, Eduardo. Let's get started!\n\nStart searching your cards like 'emrakul'."
+        when %r{\/stop}  then response.merge! action: :send_message, text: "Goodbye cyah soon!"
         else response.merge! process_message
         end
 

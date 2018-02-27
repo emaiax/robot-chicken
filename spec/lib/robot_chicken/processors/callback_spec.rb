@@ -6,7 +6,7 @@ RSpec.describe RobotChicken::Processors::Callback do
   describe "for card details", vcr: { cassette_name: "callback/card_details" } do
     let(:message) { build :callback, data: "card#c77d7dc5dbbaf945fddb20d77b0ca8d547c53d29" }
 
-    it { expect(subject.keys).to match_array([:action, :text, :reply_markup]) }
+    it { expect(subject.keys).to match_array(%i[action text reply_markup]) }
 
     it { expect(subject[:action]).to eql(:edit_message) }
 
@@ -26,7 +26,7 @@ RSpec.describe RobotChicken::Processors::Callback do
   describe "for card picture", vcr: { cassette_name: "callback/card_picture" } do
     let(:message) { build :callback, data: "picture#c77d7dc5dbbaf945fddb20d77b0ca8d547c53d29" }
 
-    it { expect(subject.keys).to match_array([:action, :photo]) }
+    it { expect(subject.keys).to match_array(%i[action photo]) }
 
     it { expect(subject[:action]).to eql(:send_photo) }
 
@@ -38,7 +38,7 @@ RSpec.describe RobotChicken::Processors::Callback do
   describe "for card rulings", vcr: { cassette_name: "callback/card_rulings" } do
     let(:message) { build :callback, data: "rulings#c77d7dc5dbbaf945fddb20d77b0ca8d547c53d29" }
 
-    it { expect(subject.keys).to match_array([:action, :text]) }
+    it { expect(subject.keys).to match_array(%i[action text]) }
 
     it { expect(subject[:action]).to eql(:send_message) }
 

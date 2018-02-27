@@ -4,12 +4,8 @@ module RobotChicken
       class << self
         private
 
-        CALLBACKS = %w[card picture rulings].freeze
-
         def reply
           type, id = callback_data.split("#")
-
-          raise NotImplementedError, "Callback not found" unless CALLBACKS.include?(type)
 
           card = Card.find_by_id(id)
 

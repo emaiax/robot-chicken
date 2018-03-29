@@ -9,14 +9,13 @@ RSpec.describe RobotChicken::Message do
         action: :send_message,
         chat_id: message.chat.id,
         parse_mode: "HTML",
-        text: "Hello, Eduardo. Let's get started!\n\nStart searching your cards like 'emrakul'."
+        text: "Hello, Eduardo. Let's get started!\n\nStart searching cards like 'emrakul'."
       }
     end
 
     subject { described_class.reply message }
 
     it { expect(subject).to match_array(response) }
-    it { expect { subject }.to output(%r{@emaiax: \/start}).to_stdout }
 
     it { expect { |block| described_class.reply(message, &block) }.to yield_with_args(response) }
   end
@@ -36,7 +35,6 @@ RSpec.describe RobotChicken::Message do
     subject { described_class.reply message }
 
     it { expect(subject).to match_array(response) }
-    it { expect { subject }.to output(%r{@emaiax: \/stop}).to_stdout }
 
     it { expect { |block| described_class.reply(message, &block) }.to yield_with_args(response) }
   end
@@ -57,7 +55,6 @@ RSpec.describe RobotChicken::Message do
     subject { described_class.reply message }
 
     it { expect(subject).to match_array(response) }
-    it { expect { subject }.to output(/@emaiax: azusa/).to_stdout }
 
     it { expect { |block| described_class.reply(message, &block) }.to yield_with_args(response) }
   end

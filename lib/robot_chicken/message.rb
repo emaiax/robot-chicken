@@ -9,6 +9,9 @@ module RobotChicken
 
         text = message.respond_to?(:text) ? message.text : nil
 
+        RobotChicken.logger.info "@#{message.from.username}: #{text}"
+
+
         case text
         when %r{\/start} then response.merge! action: :send_message, text: "Hello, Eduardo. Let's get started!\n\nStart searching your cards like 'emrakul'."
         when %r{\/stop}  then response.merge! action: :send_message, text: "Goodbye cyah soon!"

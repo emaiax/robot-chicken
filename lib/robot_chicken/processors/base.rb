@@ -14,7 +14,7 @@ module RobotChicken
         private
 
         def reply
-          raise NotImplemented, "missing"
+          raise NotImplementedError, "missing"
         end
 
         def cards_reply(cards)

@@ -9,7 +9,7 @@ RSpec.describe RobotChicken::Bot do
     it { expect { subject }.to output(/Initializing MTG Helper \[#448967013\]/).to_stdout }
   end
 
-  describe "listen", vcr: { cassette_name: :conversation, allow_playback_repeats: true }do
+  xdescribe "listen", vcr: { cassette_name: :conversation, allow_playback_repeats: true }do
     context "when faraday fails" do
       before { allow(subject.client).to receive(:listen).and_raise(Faraday::ConnectionFailed.new("Bad bot")) }
 

@@ -1,7 +1,7 @@
 module RobotChicken
   class Message
     class << self
-      START_TEXT = "Hello, Eduardo. Let's get started!\n\nStart searching your cards like 'emrakul'.".freeze
+      START_TEXT = "Hello, Eduardo. Let's get started!\n\nStart searching cards like 'emrakul'.".freeze
       STOP_TEXT  = "Goodbye cyah soon!".freeze
 
       attr_reader :message, :response

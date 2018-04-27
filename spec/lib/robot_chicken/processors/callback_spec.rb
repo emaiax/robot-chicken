@@ -8,7 +8,7 @@ RSpec.describe RobotChicken::Processors::Callback do
 
     it { expect(subject.keys).to match_array(%i[action text reply_markup]) }
 
-    it { expect(subject[:action]).to eql(:edit_message) }
+    it { expect(subject[:action]).to eql(:send_message) }
 
     it { expect(subject[:text]).to match(/Inquisition of Kozilek/) }
 

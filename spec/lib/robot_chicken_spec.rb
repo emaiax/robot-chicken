@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe RobotChicken do
   it { expect(described_class.logger).to be_instance_of(BotLogger) }
 
-  context "with api token", vcr: { cassette_name: :info } do
+  context "with api token", vcr: { cassette_name: :bot_info } do
     it "creates bot instance and start to listen" do
       expect(described_class.bot).to receive(:listen)
 

@@ -1,9 +1,12 @@
 module RobotChicken
   class Message
     class << self
+      START_TEXT = "Hello, Eduardo. Let's get started!\n\nStart searching your cards like 'emrakul'.".freeze
+      STOP_TEXT  = "Goodbye cyah soon!".freeze
+
       attr_reader :message, :response
 
-      def reply(message, &block)
+      def reply(message)
         @message  = message
         @response = { chat_id: chat_id, parse_mode: "HTML" }
 
@@ -11,12 +14,7 @@ module RobotChicken
 
         RobotChicken.logger.info "@#{message.from.username}: #{text}"
 
-
-        case text
-        when %r{\/start} then response.merge! action: :send_message, text: "Hello, Eduardo. Let's get started!\n\nStart searching your cards like 'emrakul'."
-        when %r{\/stop}  then response.merge! action: :send_message, text: "Goodbye cyah soon!"
-        else response.merge! process_message
-        end
+        response.merge!(process_message(text))
 
         yield response if block_given?
 
@@ -25,30 +23,24 @@ module RobotChicken
 
       private
 
-      def process_message
+      def process_message(text)
+        case text
+        when %r{\/start} then { action: :send_message, text: START_TEXT }
+        when %r{\/stop}  then { action: :send_message, text: STOP_TEXT }
+        else process_reply
+        end
+      end
+
+      def process_reply
         case message
         when Telegram::Bot::Types::Message       then Processors::Message.process(message)
         when Telegram::Bot::Types::CallbackQuery then Processors::Callback.process(message.message, message.data)
         end
       end
 
-      def log_message
-        case message
-        when Telegram::Bot::Types::Message then
-          text = "@#{message.from.username}: #{message.text}"
-          title = message.chat.type == "group" ? "(#{message.chat.title})" : ""
-        when Telegram::Bot::Types::CallbackQuery then
-          text = "[callback] @#{message.from.username}: #{message.data}"
-          title = message.message.chat.type == "group" ? "(#{message.chat.title})" : ""
-        else ""
-        end
-
-        RobotChicken.logger.info "#{text} #{title}"
-      end
-
       def chat_id
         case message
-        when Telegram::Bot::Types::Message then       message.chat.id
+        when Telegram::Bot::Types::Message       then message.chat.id
         when Telegram::Bot::Types::CallbackQuery then message.message.chat.id
         end
       end

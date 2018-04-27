@@ -15,7 +15,7 @@ module RobotChicken
           else
             cards_reply([card]).tap do |reply|
               reply.delete(:reply_markup) unless reply[:reply_markup]
-            end.merge(action: :edit_message)
+            end.merge(action: :send_message)
           end
         end
       end

@@ -12,11 +12,13 @@ module RobotChicken
 
     def listen
       client.listen do |message|
-        Message.reply(message) { |response| client.api.send(response[:action], response) }
+        Message.reply(message) do |response|
+          client.api.send(response[:action], response)
+        end
       end
     rescue Faraday::ConnectionFailed => e
       RobotChicken.logger.warn "Faraday failing. Retrying. #{e}"
-      retry if ENV["RUBY_ENV"] == "test"
+      retry if RobotChicken.test?
     end
 
     private

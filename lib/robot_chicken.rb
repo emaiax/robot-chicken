@@ -33,4 +33,10 @@ module RobotChicken
       logger.warn "No API TOKEN found."
     end
   end
+
+  %w(test development production).each do |environment|
+    define_method "#{environment}?" do
+      environment == (ENV.fetch("RUBY_ENV", "") || ENV.fetch("RACK_ENV", "") || "development")
+    end
+  end
 end

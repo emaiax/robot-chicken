@@ -18,7 +18,7 @@ RSpec.describe RobotChicken::Message do
     it { expect(subject).to match_array(response) }
     it { expect { subject }.to output(%r{@emaiax: \/start}).to_stdout }
 
-    it { expect { |b| described_class.reply(message, &b) }.to yield_with_args(response) }
+    it { expect { |block| described_class.reply(message, &block) }.to yield_with_args(response) }
   end
 
   describe "stop" do
@@ -38,7 +38,7 @@ RSpec.describe RobotChicken::Message do
     it { expect(subject).to match_array(response) }
     it { expect { subject }.to output(%r{@emaiax: \/stop}).to_stdout }
 
-    it { expect { |b| described_class.reply(message, &b) }.to yield_with_args(response) }
+    it { expect { |block| described_class.reply(message, &block) }.to yield_with_args(response) }
   end
 
   describe "azusa", vcr: { cassette_name: "message/single_card_azusa" } do
@@ -59,6 +59,6 @@ RSpec.describe RobotChicken::Message do
     it { expect(subject).to match_array(response) }
     it { expect { subject }.to output(/@emaiax: azusa/).to_stdout }
 
-    it { expect { |b| described_class.reply(message, &b) }.to yield_with_args(response) }
+    it { expect { |block| described_class.reply(message, &block) }.to yield_with_args(response) }
   end
 end

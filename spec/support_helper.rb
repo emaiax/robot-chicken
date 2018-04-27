@@ -16,9 +16,7 @@ VCR.configure do |config|
   config.cassette_library_dir = "spec/cassettes"
 end
 
-SimpleCov.start do
-  minimum_coverage ENV.fetch("MINIMUM_COVERAGE") { 100 }
-end
+SimpleCov.start { minimum_coverage ENV.fetch("MINIMUM_COVERAGE", 100) }
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
@@ -30,5 +28,8 @@ RSpec.configure do |config|
   config.before(:each) do
     allow(RobotChicken).to receive(:logger).and_return    BotLogger.new
     allow(RobotChicken).to receive(:api_token).and_return "448967013:123"
+
+    # allow(RobotChicken).to receive(:api_token).and_return "465527379:AAH__TKK53YBun2KMdC3Ja1wM8SO7tkYlUU"
+    # %s/465527379:AAH__TKK53YBun2KMdC3Ja1wM8SO7tkYlUU/448967013:123/g
   end
 end

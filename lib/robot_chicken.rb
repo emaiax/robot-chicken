@@ -34,7 +34,7 @@ module RobotChicken
     end
   end
 
-  %w(test development production).each do |environment|
+  %w[test development production].each do |environment|
     define_method "#{environment}?" do
       environment == (ENV.fetch("RUBY_ENV", "") || ENV.fetch("RACK_ENV", "") || "development")
     end

@@ -58,4 +58,24 @@ RSpec.describe RobotChicken::Message do
 
     it { expect { |block| described_class.reply(message, &block) }.to yield_with_args(response) }
   end
+
+  describe "rulings", vcr: { cassette_name: "callback/card_rulings" } do
+    let(:message) { build :callback }
+
+    let(:response) do
+      {
+        action: :send_message,
+        chat_id: message.message.chat.id,
+        parse_mode: "HTML",
+        text: /Inquisition of Kozilek/,
+        reply_markup: instance_of(Telegram::Bot::Types::InlineKeyboardMarkup)
+      }
+    end
+
+    subject { described_class.reply message }
+
+    it { expect(subject).to match_array(response) }
+
+    it { expect { |block| described_class.reply(message, &block) }.to yield_with_args(response) }
+  end
 end

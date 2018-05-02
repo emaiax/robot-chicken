@@ -5,7 +5,7 @@ module RobotChicken
     attr_reader :client
 
     def initialize
-      @client = Telegram::Bot::Client.new(RobotChicken.api_token)
+      @client = Telegram::Bot::Client.new(RobotChicken.api_token, logger: RobotChicken.logger)
 
       RobotChicken.logger.info "Initializing #{bot_info.dig("result", "first_name")} [##{bot_info.dig("result", "id")}]"
     end

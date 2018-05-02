@@ -9,7 +9,7 @@ RSpec.describe RobotChicken::Bot do
     it { expect { subject }.to output(/Initializing MTG Helper \[#448967013\]/).to_stdout }
   end
 
-  xdescribe "listen", vcr: { cassette_name: :conversation, allow_playback_repeats: true }do
+  describe "listen", vcr: { cassette_name: :conversation, allow_playback_repeats: true }do
     context "when faraday fails" do
       before { allow(subject.client).to receive(:listen).and_raise(Faraday::ConnectionFailed.new("Bad bot")) }
 
@@ -17,7 +17,15 @@ RSpec.describe RobotChicken::Bot do
     end
 
     context "starts listening to Telegram's API" do
-      it { expect { subject.listen }.to output(/fuck/).to_stdout }
+      let(:message)  { build :message }
+      let(:response) { { action: :send_message, text: "hi" } }
+
+      it do
+        expect(subject.client).to receive(:listen).and_yield(message)
+        expect(RobotChicken::Message).to receive(:reply).with(message).and_yield(response)
+
+        subject.listen
+      end
     end
   end
 end

@@ -29,7 +29,9 @@ FactoryBot.define do
   end
 
   factory :callback, class: Telegram::Bot::Types::CallbackQuery do
-    id { rand(1000) }
+    id   { rand(1000) }
+
+    data "card#c77d7dc5dbbaf945fddb20d77b0ca8d547c53d29"
 
     association :from,          factory: :user,    strategy: :build
     association :message,       factory: :message, strategy: :build
